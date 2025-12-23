@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>우연이 아닐지도 — 랜덤 위로 문장 카드</title>
+
+    <!-- SEO -->
+    <meta
+      name="description"
+      content="클릭 한 번으로 오늘의 위로 문장을 카드로 받아보세요. 지금 이 문장을 본 건, 우연이 아닐지도."
+    />
+    <meta
+      name="keywords"
+      content="위로 문장, 랜덤 위로, 힐링 문구, 짧은 문장, 감정 회복, 응원 문장, 심리, 자기위로"
+    />
+    <link rel="canonical" href="https://funnyfunny.cloud/" />
+    <meta name="author" content="FunnyFunny" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="우연이 아닐지도 — 랜덤 위로 문장 카드" />
+    <meta
+      property="og:description"
+      content="클릭 한 번. 오늘 당신에게 도착한 한 문장."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://funnyfunny.cloud/" />
+    <!-- OG Image (dummyimage.com 사용) -->
+    <meta
+      property="og:image"
+      content="https://dummyimage.com/1200x630/0b1020/ffffff&text=Not+Just+Coincidence"
+    />
+    <meta property="og:image:alt" content="Not Just Coincidence" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Ctext y='50' font-size='50'%3E%F0%9F%92%8C%3C/text%3E%3C/svg%3E"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      .grain::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
+        mix-blend-mode: overlay;
+        opacity: 0.35;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          scroll-behavior: auto !important;
+        }
+        .motion-safe\:transition,
+        .motion-safe\:animate {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-[#070A14] text-slate-100">
+    <div
+      id="bg"
+      class="relative min-h-screen overflow-hidden grain bg-gradient-to-b from-[#070A14] via-[#0B1020] to-[#070A14]"
+    >
+      <div
+        class="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl opacity-40 bg-white/10"
+      ></div>
+      <div
+        class="absolute -bottom-24 -right-24 h-72 w-72 rounded-full blur-3xl opacity-40 bg-white/10"
+      ></div>
+
+      <main class="relative mx-auto max-w-2xl px-5 py-10 sm:py-14">
+        <!-- Top bar -->
+        <header class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <div
+              class="h-10 w-10 rounded-2xl bg-white/10 grid place-items-center border border-white/10"
+            >
+              <span class="text-xl">💌</span>
+            </div>
+            <div>
+              <h1 class="text-base sm:text-lg font-semibold tracking-tight">
+                우연이 아닐지도
+              </h1>
+              <p class="text-xs sm:text-sm text-slate-300/90">
+                클릭 한 번으로 위로 카드 한 장
+              </p>
+            </div>
+          </div>
+
+          <!-- 다른 서비스 보기 (기본 포함) -->
+          <a
+            href="https://funnyfunny.cloud/"
+            class="shrink-0 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-slate-100 hover:bg-white/10 active:scale-[0.99] transition"
+            aria-label="다른 서비스 보기"
+          >
+            <span class="text-base">🧩</span>
+            <span>다른 서비스 보기</span>
+          </a>
+        </header>
+
+        <!-- Hero -->
+        <section class="mt-10 sm:mt-12 text-center">
+          <p class="text-sm text-slate-300/90">지금 이 문장을 본 건</p>
+          <h2
+            class="mt-2 text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight"
+          >
+            우연이 아닐지도 몰라요
+          </h2>
+          <p class="mt-4 text-sm sm:text-base text-slate-300/90">
+            설명도, 분석도 없이. 그냥 한 문장만.
+          </p>
+
+          <div class="mt-7 flex items-center justify-center gap-3">
+            <button
+              id="btn"
+              class="group inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 sm:px-6 sm:py-3.5 bg-white text-slate-900 font-semibold shadow-sm shadow-white/10 hover:shadow-md hover:shadow-white/10 active:scale-[0.99] transition"
+            >
+              <span class="text-lg">눌러보기</span>
+              <span class="text-lg group-hover:translate-x-0.5 transition"
+                >→</span
+              >
+            </button>
+
+            <button
+              id="btnCopy"
+              disabled
+              class="inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 border border-white/15 bg-white/5 text-slate-100 hover:bg-white/10 active:scale-[0.99] transition disabled:opacity-40 disabled:hover:bg-white/5"
+            >
+              <span class="text-base">📋</span>
+              <span class="text-sm font-semibold">복사</span>
+            </button>
+          </div>
+
+          <p id="hint" class="mt-3 text-xs text-slate-400/90">
+            클릭하면 카드가 나타납니다.
+          </p>
+        </section>
+
+        <!-- Card -->
+        <section class="mt-10 sm:mt-12">
+          <div id="cardWrap" class="hidden">
+            <div
+              id="card"
+              class="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 shadow-lg shadow-black/30"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5"
+              ></div>
+
+              <div class="relative p-7 sm:p-10">
+                <div class="flex items-center justify-between">
+                  <p
+                    class="text-xs uppercase tracking-[0.18em] text-slate-300/80"
+                  >
+                    Today’s line
+                  </p>
+                  <span
+                    id="badge"
+                    class="text-xs rounded-full border border-white/15 bg-white/5 px-3 py-1 text-slate-200"
+                  >
+                    우연
+                  </span>
+                </div>
+
+                <blockquote class="mt-6 sm:mt-7">
+                  <p
+                    id="quote"
+                    class="text-xl sm:text-2xl font-semibold leading-relaxed tracking-tight text-slate-50"
+                  >
+                    <!-- quote here -->
+                  </p>
+                </blockquote>
+
+                <div class="mt-7 flex flex-wrap items-center gap-2">
+                  <button
+                    id="btnAgain"
+                    class="inline-flex items-center gap-2 rounded-full bg-white text-slate-900 px-4 py-2 font-semibold hover:shadow-md hover:shadow-white/10 active:scale-[0.99] transition"
+                  >
+                    <span>다른 문장 보기</span>
+                    <span class="transition group-hover:translate-x-0.5"
+                      >↻</span
+                    >
+                  </button>
+
+                  <button
+                    id="btnShare"
+                    class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-slate-100 font-semibold hover:bg-white/10 active:scale-[0.99] transition"
+                  >
+                    <span>공유</span>
+                    <span>🔗</span>
+                  </button>
+
+                  <span
+                    id="toast"
+                    class="ml-auto text-xs text-slate-300/90 opacity-0 transition"
+                  >
+                    복사했어요.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p class="mt-4 text-center text-xs text-slate-400/90">
+              * 너무 무겁지 않게, 오늘만큼은 한 문장으로 충분해요.
+            </p>
+          </div>
+
+          <!-- Bottom "다른 서비스 보기" 영역도 한번 더(광고/결과 아래 유도용) -->
+          <div class="mt-12 sm:mt-14">
+            <div
+              class="rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-7"
+            >
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <p
+                    class="text-xs uppercase tracking-[0.18em] text-slate-300/80"
+                  >
+                    More
+                  </p>
+                  <h3 class="mt-2 text-lg sm:text-xl font-bold tracking-tight">
+                    다른 서비스도 가볍게
+                  </h3>
+                  <p class="mt-1 text-sm text-slate-300/90">
+                    재미있는 테스트/유틸이 더 있어요. 딱 필요한 것만 빠르게.
+                  </p>
+                </div>
+                <a
+                  href="https://funnyfunny.cloud/"
+                  class="shrink-0 inline-flex items-center justify-center rounded-2xl px-4 py-3 bg-white text-slate-900 font-semibold hover:shadow-md hover:shadow-white/10 active:scale-[0.99] transition"
+                >
+                  다른 서비스 보기 →
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="mt-10 sm:mt-12 text-center text-xs text-slate-500">
+          <p>© FunnyFunny. Made for light comfort.</p>
+        </footer>
+      </main>
+    </div>
+
+    <script>
+      // --- Quotes (가벼운 위로: 조언/훈계 없이 "인정/공감/여백") ---
+      const QUOTES = [
+        "오늘은 ‘버틴 것’만으로도 충분한 날이에요.",
+        "지금 느끼는 감정은, 틀린 게 아니에요.",
+        "조금 느려도 괜찮아요. 멈춘 건 아니니까.",
+        "당신이 여기까지 온 것도 사실 꽤 대단해요.",
+        "지금은 잘하고 있어요. 다만 지치고 있을 뿐.",
+        "아무것도 안 해도, 오늘은 이미 충분해요.",
+        "마음이 무거운 날엔, 숨만 잘 쉬어도 성공이에요.",
+        "오늘의 당신은, 어제의 당신보다 이미 한 걸음이에요.",
+        "괜찮아지지 않아도 괜찮아요. 지금은 그냥 여기 있어요.",
+        "남들 기준 말고, 내 속도대로 가도 돼요.",
+        "생각이 많을수록, 당신이 진지하게 살고 있다는 증거예요.",
+        "불안은 나쁜 예감이 아니라, 소중한 걸 지키려는 마음이에요.",
+        "조용히 버티는 사람은, 늘 강해요.",
+        "마음이 흔들려도, 당신의 가치가 흔들리는 건 아니에요.",
+        "오늘은 ‘잘해내기’보다 ‘잘 쉬기’를 해도 돼요.",
+        "한 번 무너져도 괜찮아요. 다시 세우는 법을 이미 알고 있으니까.",
+        "지금 필요한 건 답이 아니라, 잠깐의 숨일지도 몰라요.",
+        "당신이 스스로를 다그치지 않아도, 세상은 충분히 바빠요.",
+        "지금의 당신도, 충분히 사랑받을 만해요.",
+        "조급함은 열심히 살고 있다는 흔적이에요.",
+        "완벽하지 않아도, 당신은 계속 나아가고 있어요.",
+        "어쩌면 오늘은 ‘괜찮은 척’ 안 해도 되는 날이에요.",
+        "생각보다 많은 사람들이, 당신처럼 버티고 있어요.",
+        "마음이 어지러우면, 작은 것부터 하나만 해도 돼요.",
+        "지금은 ‘해결’보다 ‘돌봄’이 먼저예요.",
+        "오늘의 당신은, 스스로에게 조금 더 친절해도 돼요.",
+        "한 번 쉬어도 괜찮아요. 쉬는 것도 방향이에요.",
+        "아직 끝이 아니라, 중간이에요.",
+        "당신이 지친 건, 포기해서가 아니라 계속해서예요.",
+        "오늘은 그냥… 살아낸 날로 충분해요.",
+      ];
+
+      const BADGES = [
+        "우연",
+        "도착",
+        "한 문장",
+        "오늘",
+        "괜찮아",
+        "숨",
+        "여백",
+        "그대로",
+      ];
+
+      // --- Elements ---
+      const btn = document.getElementById("btn");
+      const btnAgain = document.getElementById("btnAgain");
+      const btnCopy = document.getElementById("btnCopy");
+      const btnShare = document.getElementById("btnShare");
+      const cardWrap = document.getElementById("cardWrap");
+      const quoteEl = document.getElementById("quote");
+      const toast = document.getElementById("toast");
+      const badgeEl = document.getElementById("badge");
+      const hint = document.getElementById("hint");
+      const bg = document.getElementById("bg");
+
+      // --- Helpers ---
+      function pick(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      function randomBg() {
+        // 아주 은은한 배경 변화 (색상 직접 지정은 최소, 투명도만 활용)
+        const a = Math.random() * 0.1 + 0.08;
+        const b = Math.random() * 0.1 + 0.08;
+        bg.style.backgroundImage = `radial-gradient(700px 380px at 10% 10%, rgba(255,255,255,${a}), transparent 60%),
+         radial-gradient(700px 380px at 90% 90%, rgba(255,255,255,${b}), transparent 60%),
+         linear-gradient(to bottom, #070A14, #0B1020, #070A14)`;
+      }
+
+      function setQuote(q) {
+        quoteEl.textContent = q;
+        badgeEl.textContent = pick(BADGES);
+        btnCopy.disabled = false;
+
+        // animate in
+        quoteEl.style.opacity = 0;
+        quoteEl.style.transform = "translateY(6px)";
+        requestAnimationFrame(() => {
+          quoteEl.style.transition = "opacity 240ms ease, transform 240ms ease";
+          quoteEl.style.opacity = 1;
+          quoteEl.style.transform = "translateY(0)";
+        });
+      }
+
+      function showCard() {
+        cardWrap.classList.remove("hidden");
+        cardWrap.style.opacity = 0;
+        cardWrap.style.transform = "translateY(10px)";
+        requestAnimationFrame(() => {
+          cardWrap.style.transition =
+            "opacity 260ms ease, transform 260ms ease";
+          cardWrap.style.opacity = 1;
+          cardWrap.style.transform = "translateY(0)";
+        });
+      }
+
+      function makeShareText() {
+        const q = quoteEl.textContent?.trim() || "";
+        return `“${q}”\n\n지금 이 문장을 본 건, 우연이 아닐지도.\n`;
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          toast.textContent = "복사했어요.";
+          toast.style.opacity = 1;
+          setTimeout(() => (toast.style.opacity = 0), 1100);
+        } catch (e) {
+          // fallback
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+          toast.textContent = "복사했어요.";
+          toast.style.opacity = 1;
+          setTimeout(() => (toast.style.opacity = 0), 1100);
+        }
+      }
+
+      // --- Actions ---
+      function roll() {
+        const q = pick(QUOTES);
+        randomBg();
+        setQuote(q);
+        showCard();
+        hint.textContent = "마음에 들면 ‘복사’하거나 ‘공유’해도 좋아요.";
+      }
+
+      btn.addEventListener("click", roll);
+      btnAgain.addEventListener("click", roll);
+
+      btnCopy.addEventListener("click", () => copyText(makeShareText()));
+
+      btnShare.addEventListener("click", async () => {
+        const text = makeShareText();
+        // Web Share API if available
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: "우연이 아닐지도 — 랜덤 위로 문장",
+              text,
+            });
+            return;
+          } catch (e) {
+            /* user cancelled */
+          }
+        }
+        // fallback = copy
+        copyText(text);
+      });
+
+      // Optional: 첫 진입 시 0.4초 후 힌트 감성
+      setTimeout(() => {
+        hint.textContent = "지금 필요한 건, 한 문장일지도.";
+      }, 450);
+    </script>
+  </body>
+</html>
