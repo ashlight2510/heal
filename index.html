@@ -493,6 +493,115 @@
       setTimeout(() => {
         hint.textContent = t("hintInitial");
       }, 450);
+
+      // i18n
+      const translations = {
+        ko: {
+          headerTitle: "우연이 아닐지도",
+          headerSubtitle: "클릭 한 번으로 위로 카드 한 장",
+          heroTitle: "우연이 아닐지도 몰라요",
+          heroSubtitle: "설명도, 분석도 없이. 그냥 한 문장만.",
+          btnText: "눌러보기",
+          copyBtn: "복사",
+          hint: "클릭하면 카드가 나타납니다.",
+          hintAfterRoll: "다른 문장이 필요하면 다시 눌러보세요.",
+          hintInitial: "클릭하면 카드가 나타납니다.",
+          againBtn: "다른 문장 보기",
+          shareBtn: "공유",
+          shareMessage: "우연이 아닐지도 — 오늘 당신에게 도착한 한 문장",
+          shareTitle: "우연이 아닐지도",
+          copySuccess: "복사했어요.",
+          otherServices: "다른 서비스 보기 →",
+        },
+        en: {
+          headerTitle: "Not Just Coincidence",
+          headerSubtitle: "One comfort card with one click",
+          heroIntro: "You're seeing this sentence now",
+          heroTitle: "It might not be a coincidence",
+          heroSubtitle: "No explanation, no analysis. Just one sentence.",
+          btnText: "Click",
+          copyBtn: "Copy",
+          hint: "Click to see a card.",
+          hintAfterRoll: "Click again if you need another sentence.",
+          hintInitial: "Click to see a card.",
+          againBtn: "See another",
+          shareBtn: "Share",
+          shareMessage: "Not Just Coincidence — One sentence that arrived for you today",
+          shareTitle: "Not Just Coincidence",
+          copySuccess: "Copied.",
+          otherServices: "View other services →",
+        },
+      };
+
+      const defaultLang = "ko";
+      const supportedLangs = ["ko", "en"];
+      let currentLang = defaultLang;
+
+      function t(key, vars = {}) {
+        const langTable = translations[currentLang] || translations.ko;
+        const template = langTable?.[key] ?? translations.ko?.[key] ?? key;
+        if (typeof template !== "string") {
+          return template;
+        }
+        return template.replace(/\{(\w+)\}/g, (_, token) =>
+          vars[token] !== undefined ? vars[token] : `{${token}}`
+        );
+      }
+
+      function applyTranslations() {
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          el.textContent = t(el.dataset.i18n);
+        });
+        document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+          el.innerHTML = t(el.dataset.i18nHtml);
+        });
+      }
+
+      function setLang(lang, options = {}) {
+        const nextLang = translations[lang] ? lang : defaultLang;
+        currentLang = nextLang;
+        document.documentElement.lang = nextLang;
+        localStorage.setItem("preferredLang", nextLang);
+        document.querySelectorAll(".lang-switch button").forEach((button) => {
+          button.classList.toggle("active", button.dataset.lang === nextLang);
+        });
+        applyTranslations();
+        if (options.updateUrl) {
+          const url = new URL(window.location.href);
+          url.searchParams.set("lang", nextLang);
+          window.history.replaceState({}, "", url);
+        }
+      }
+
+      function detectLang() {
+        const params = new URLSearchParams(window.location.search);
+        const paramLang = params.get("lang");
+        if (supportedLangs.includes(paramLang)) return paramLang;
+        const stored = localStorage.getItem("preferredLang");
+        if (supportedLangs.includes(stored)) return stored;
+        const intlLocale =
+          typeof Intl === "object" && typeof Intl.DateTimeFormat === "function"
+            ? Intl.DateTimeFormat().resolvedOptions().locale
+            : "";
+        const sources = [
+          ...(navigator.languages || []),
+          navigator.language,
+          navigator.userLanguage,
+          intlLocale,
+        ]
+          .filter(Boolean)
+          .map((locale) => locale.toLowerCase());
+        const hasKorean = sources.some((locale) => locale.startsWith("ko"));
+        return hasKorean ? "ko" : "en";
+      }
+
+      document.querySelectorAll(".lang-switch button").forEach((button) => {
+        button.addEventListener("click", () => {
+          setLang(button.dataset.lang, { updateUrl: true });
+        });
+      });
+
+      setLang(detectLang(), { updateUrl: false });
     </script>
   
 <ins class="adsbygoogle"
