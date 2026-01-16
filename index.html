@@ -182,16 +182,16 @@
           <a
             href="https://funnyfunny.cloud/"
             class="shrink-0 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-slate-100 hover:bg-white/10 active:scale-[0.99] transition"
-            aria-label="다른 서비스 보기"
+            data-i18n-aria="otherServicesAria"
           >
             <span class="text-base">🧩</span>
-            <span>다른 서비스 보기</span>
+            <span data-i18n="otherServices">다른 서비스 보기</span>
           </a>
         </header>
 
         <!-- Hero -->
         <section class="mt-10 sm:mt-12 text-center">
-          <p class="text-sm text-slate-300/90">지금 이 문장을 본 건</p>
+          <p class="text-sm text-slate-300/90" data-i18n="heroIntro">지금 이 문장을 본 건</p>
           <h2
             class="mt-2 text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight"
             data-i18n="heroTitle"
@@ -243,8 +243,9 @@
                 <div class="flex items-center justify-between">
                   <p
                     class="text-xs uppercase tracking-[0.18em] text-slate-300/80"
+                    data-i18n="todayLine"
                   >
-                    Today’s line
+                    Today's line
                   </p>
                   <span
                     id="badge"
@@ -285,6 +286,7 @@
                   <span
                     id="toast"
                     class="ml-auto text-xs text-slate-300/90 opacity-0 transition"
+                    data-i18n="copySuccess"
                   >
                     복사했어요.
                   </span>
@@ -292,7 +294,7 @@
               </div>
             </div>
 
-            <p class="mt-4 text-center text-xs text-slate-400/90">
+            <p class="mt-4 text-center text-xs text-slate-400/90" data-i18n="cardNote">
               * 너무 무겁지 않게, 오늘만큼은 한 문장으로 충분해요.
             </p>
           </div>
@@ -306,19 +308,21 @@
                 <div>
                   <p
                     class="text-xs uppercase tracking-[0.18em] text-slate-300/80"
+                    data-i18n="moreLabel"
                   >
                     More
                   </p>
-                  <h3 class="mt-2 text-lg sm:text-xl font-bold tracking-tight">
+                  <h3 class="mt-2 text-lg sm:text-xl font-bold tracking-tight" data-i18n="moreTitle">
                     다른 서비스도 가볍게
                   </h3>
-                  <p class="mt-1 text-sm text-slate-300/90">
+                  <p class="mt-1 text-sm text-slate-300/90" data-i18n="moreDescription">
                     재미있는 테스트/유틸이 더 있어요. 딱 필요한 것만 빠르게.
                   </p>
                 </div>
                 <a
                   href="https://funnyfunny.cloud/"
                   class="shrink-0 inline-flex items-center justify-center rounded-2xl px-4 py-3 bg-white text-slate-900 font-semibold hover:shadow-md hover:shadow-white/10 active:scale-[0.99] transition"
+                  data-i18n="otherServicesLink"
                 >
                   다른 서비스 보기 →
                 </a>
@@ -335,7 +339,10 @@
 
     <script>
       // --- Quotes (가벼운 위로: 조언/훈계 없이 "인정/공감/여백") ---
-      const QUOTES = [
+      function getQuotes() {
+        const isKo = currentLang === "ko";
+        if (isKo) {
+          return [
         "오늘은 ‘버틴 것’만으로도 충분한 날이에요.",
         "지금 느끼는 감정은, 틀린 게 아니에요.",
         "조금 느려도 괜찮아요. 멈춘 건 아니니까.",
@@ -367,17 +374,52 @@
         "당신이 지친 건, 포기해서가 아니라 계속해서예요.",
         "오늘은 그냥… 살아낸 날로 충분해요.",
       ];
+        } else {
+          return [
+            "Today is a day when 'enduring' is enough.",
+            "The emotions you're feeling right now aren't wrong.",
+            "It's okay to be a bit slow. You haven't stopped.",
+            "The fact that you've come this far is actually quite amazing.",
+            "You're doing fine right now. You're just tired.",
+            "Even if you do nothing, today is already enough.",
+            "On days when your heart is heavy, just breathing well is a success.",
+            "Today's you is already one step ahead of yesterday's you.",
+            "It's okay if things don't get better. Just be here right now.",
+            "You can go at your own pace, not others' standards.",
+            "The more you think, the more it proves you're living seriously.",
+            "Anxiety isn't a bad premonition; it's your heart trying to protect something precious.",
+            "People who endure quietly are always strong.",
+            "Even if your heart wavers, your worth doesn't.",
+            "Today, it's okay to 'rest well' rather than 'do well'.",
+            "It's okay to fall once. You already know how to get back up.",
+            "What you need right now might not be an answer, but just a moment to breathe.",
+            "Even if you don't push yourself, the world is busy enough.",
+            "The you right now is worthy of love.",
+            "Impatience is a trace of living hard.",
+            "Even if you're not perfect, you're still moving forward.",
+            "Maybe today is a day when you don't have to pretend to be okay.",
+            "More people than you think are enduring just like you.",
+            "If your mind is chaotic, you can do just one small thing.",
+            "Right now, 'care' comes before 'solution'.",
+            "Today's you can be a little kinder to yourself.",
+            "It's okay to rest once. Resting is also a direction.",
+            "It's not the end yet; it's the middle.",
+            "You're tired not because you gave up, but because you kept going.",
+            "Today is just... enough as a day you survived.",
+          ];
+        }
+      }
 
-      const BADGES = [
-        "우연",
-        "도착",
-        "한 문장",
-        "오늘",
-        "괜찮아",
-        "숨",
-        "여백",
-        "그대로",
-      ];
+      const QUOTES = getQuotes();
+
+      function getBadges() {
+        const isKo = currentLang === "ko";
+        return isKo
+          ? ["우연", "도착", "한 문장", "오늘", "괜찮아", "숨", "여백", "그대로"]
+          : ["Coincidence", "Arrived", "One line", "Today", "It's okay", "Breathe", "Space", "As is"];
+      }
+
+      const BADGES = getBadges();
 
       // --- Elements ---
       const btn = document.getElementById("btn");
@@ -407,7 +449,8 @@
 
       function setQuote(q) {
         quoteEl.textContent = q;
-        badgeEl.textContent = pick(BADGES);
+        const badges = getBadges();
+        badgeEl.textContent = pick(badges);
         btnCopy.disabled = false;
 
         // animate in
@@ -459,7 +502,8 @@
 
       // --- Actions ---
       function roll() {
-        const q = pick(QUOTES);
+        const quotes = getQuotes();
+        const q = pick(quotes);
         randomBg();
         setQuote(q);
         showCard();
@@ -497,8 +541,12 @@
       // i18n
       const translations = {
         ko: {
+          metaTitle: "우연이 아닐지도 — 랜덤 위로 문장 카드",
+          metaDescription: "클릭 한 번으로 오늘의 위로 문장을 카드로 받아보세요. 지금 이 문장을 본 건, 우연이 아닐지도.",
+          ogDescription: "클릭 한 번. 오늘 당신에게 도착한 한 문장.",
           headerTitle: "우연이 아닐지도",
           headerSubtitle: "클릭 한 번으로 위로 카드 한 장",
+          heroIntro: "지금 이 문장을 본 건",
           heroTitle: "우연이 아닐지도 몰라요",
           heroSubtitle: "설명도, 분석도 없이. 그냥 한 문장만.",
           btnText: "눌러보기",
@@ -511,9 +559,19 @@
           shareMessage: "우연이 아닐지도 — 오늘 당신에게 도착한 한 문장",
           shareTitle: "우연이 아닐지도",
           copySuccess: "복사했어요.",
-          otherServices: "다른 서비스 보기 →",
+          otherServices: "다른 서비스 보기",
+          otherServicesAria: "다른 서비스 보기",
+          otherServicesLink: "다른 서비스 보기 →",
+          todayLine: "Today's line",
+          cardNote: "* 너무 무겁지 않게, 오늘만큼은 한 문장으로 충분해요.",
+          moreLabel: "More",
+          moreTitle: "다른 서비스도 가볍게",
+          moreDescription: "재미있는 테스트/유틸이 더 있어요. 딱 필요한 것만 빠르게.",
         },
         en: {
+          metaTitle: "Not Just Coincidence — Random Comfort Sentence Card",
+          metaDescription: "Get today's comfort sentence as a card with one click. You're seeing this sentence now—it might not be a coincidence.",
+          ogDescription: "One click. One sentence that arrived for you today.",
           headerTitle: "Not Just Coincidence",
           headerSubtitle: "One comfort card with one click",
           heroIntro: "You're seeing this sentence now",
@@ -529,7 +587,14 @@
           shareMessage: "Not Just Coincidence — One sentence that arrived for you today",
           shareTitle: "Not Just Coincidence",
           copySuccess: "Copied.",
-          otherServices: "View other services →",
+          otherServices: "View other services",
+          otherServicesAria: "View other services",
+          otherServicesLink: "View other services →",
+          todayLine: "Today's line",
+          cardNote: "* Not too heavy—one sentence is enough for today.",
+          moreLabel: "More",
+          moreTitle: "Other services, lightly",
+          moreDescription: "More fun tests/utils. Just what you need, quickly.",
         },
       };
 
@@ -555,17 +620,39 @@
         document.querySelectorAll("[data-i18n-html]").forEach((el) => {
           el.innerHTML = t(el.dataset.i18nHtml);
         });
+        document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
+          el.setAttribute("aria-label", t(el.dataset.i18nAria));
+        });
+        // Update meta tags
+        document.title = t("metaTitle");
+        const descMeta = document.querySelector('meta[name="description"]');
+        if (descMeta) descMeta.setAttribute("content", t("metaDescription"));
+        const ogTitleMeta = document.querySelector('meta[property="og:title"]');
+        if (ogTitleMeta) ogTitleMeta.setAttribute("content", t("metaTitle"));
+        const ogDescMeta = document.querySelector('meta[property="og:description"]');
+        if (ogDescMeta) ogDescMeta.setAttribute("content", t("ogDescription"));
+        // Update badge text
+        if (badgeEl && badgeEl.textContent) {
+          const badges = getBadges();
+          badgeEl.textContent = pick(badges);
+        }
       }
 
       function setLang(lang, options = {}) {
         const nextLang = translations[lang] ? lang : defaultLang;
         currentLang = nextLang;
+        window.currentLang = currentLang;
         document.documentElement.lang = nextLang;
         localStorage.setItem("preferredLang", nextLang);
         document.querySelectorAll(".lang-switch button").forEach((button) => {
           button.classList.toggle("active", button.dataset.lang === nextLang);
         });
         applyTranslations();
+        // Update badge if card is visible
+        if (!cardWrap.classList.contains("hidden") && badgeEl) {
+          const badges = getBadges();
+          badgeEl.textContent = pick(badges);
+        }
         if (options.updateUrl) {
           const url = new URL(window.location.href);
           url.searchParams.set("lang", nextLang);
@@ -596,6 +683,13 @@
       });
 
       setLang(detectLang(), { updateUrl: false });
+
+      // Make functions globally available
+      window.t = t;
+      window.currentLang = currentLang;
+      window.setLang = setLang;
+      window.getQuotes = getQuotes;
+      window.getBadges = getBadges;
     </script>
   
 <ins class="adsbygoogle"
