@@ -450,11 +450,6 @@
 
       function setQuote(q) {
         quoteEl.textContent = q;
-        // 현재 quote의 인덱스 저장
-        const quotes = getQuotes();
-        currentQuoteIndex = quotes.indexOf(q);
-        if (currentQuoteIndex === -1) currentQuoteIndex = null;
-        
         const badges = getBadges();
         badgeEl.textContent = pick(badges);
         btnCopy.disabled = false;
@@ -510,6 +505,8 @@
       function roll() {
         const quotes = getQuotes();
         const q = pick(quotes);
+        // 현재 quote의 인덱스 저장
+        currentQuoteIndex = quotes.indexOf(q);
         randomBg();
         setQuote(q);
         showCard();
