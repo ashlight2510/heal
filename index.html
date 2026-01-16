@@ -340,7 +340,8 @@
     <script>
       // --- Quotes (가벼운 위로: 조언/훈계 없이 "인정/공감/여백") ---
       function getQuotes() {
-        const isKo = currentLang === "ko";
+        const lang = window.currentLang || currentLang || "ko";
+        const isKo = lang === "ko";
         if (isKo) {
           return [
         "오늘은 ‘버틴 것’만으로도 충분한 날이에요.",
@@ -410,16 +411,16 @@
         }
       }
 
-      const QUOTES = getQuotes();
+      // QUOTES and BADGES will be initialized after currentLang is set
+      // Don't initialize here to avoid "Cannot access before initialization" error
 
       function getBadges() {
-        const isKo = currentLang === "ko";
+        const lang = window.currentLang || currentLang || "ko";
+        const isKo = lang === "ko";
         return isKo
           ? ["우연", "도착", "한 문장", "오늘", "괜찮아", "숨", "여백", "그대로"]
           : ["Coincidence", "Arrived", "One line", "Today", "It's okay", "Breathe", "Space", "As is"];
       }
-
-      const BADGES = getBadges();
 
       // --- Elements ---
       const btn = document.getElementById("btn");
