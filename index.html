@@ -450,6 +450,11 @@
 
       function setQuote(q) {
         quoteEl.textContent = q;
+        // 현재 quote의 인덱스 저장
+        const quotes = getQuotes();
+        currentQuoteIndex = quotes.indexOf(q);
+        if (currentQuoteIndex === -1) currentQuoteIndex = null;
+        
         const badges = getBadges();
         badgeEl.textContent = pick(badges);
         btnCopy.disabled = false;
@@ -639,6 +644,9 @@
         }
       }
 
+      // 현재 quote 인덱스를 저장
+      let currentQuoteIndex = null;
+      
       function setLang(lang, options = {}) {
         const nextLang = translations[lang] ? lang : defaultLang;
         currentLang = nextLang;
@@ -649,11 +657,27 @@
           button.classList.toggle("active", button.dataset.lang === nextLang);
         });
         applyTranslations();
+        
+        // Update quote if card is visible
+        if (!cardWrap.classList.contains("hidden") && quoteEl && quoteEl.textContent) {
+          const quotes = getQuotes();
+          // 같은 인덱스의 quote를 새로운 언어로 표시
+          if (currentQuoteIndex !== null && currentQuoteIndex < quotes.length) {
+            quoteEl.textContent = quotes[currentQuoteIndex];
+          } else {
+            // 인덱스가 없으면 새로운 quote 선택
+            const q = pick(quotes);
+            quoteEl.textContent = q;
+            currentQuoteIndex = quotes.indexOf(q);
+          }
+        }
+        
         // Update badge if card is visible
         if (!cardWrap.classList.contains("hidden") && badgeEl) {
           const badges = getBadges();
           badgeEl.textContent = pick(badges);
         }
+        
         if (options.updateUrl) {
           const url = new URL(window.location.href);
           url.searchParams.set("lang", nextLang);
